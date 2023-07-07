@@ -21,7 +21,15 @@
     -Envoi de valeur venant de la vue dans FrontServlet 
     -Le nom de l' attribut de l' input envoyée doit être la même que le nom de l'argument dans l' annotation Arguments qui contient les noms des arguments de la méthode dans la classe modèle 
     -le matching entre ces deux se fait dans frontservlet
+-Sprint 8-bis:
+    -Ajout de l'éxtension .gg pour ne pas avoir un erreur de path
 -Sprint 9 :
     -Creation de la classe FileUpload avec les attributs (fileName, path, data)
     -Vérification si de type FileUpload , si Oui remplissage du fileName par son nom et data par son tableau de byte
     Ajout:  -Création de la classe PathUpload pour pour mettre le lieu où télecharger le fichier 
+-Sprint 10:(Singleton)
+    -Création de l' interface Scope qui sera une annotation pour vérifier si une classe est singleton ou non
+    -Ajout de l'attribut HashMap<Class, Object> singleton dans FrontServlet qui sera rempli dans init()
+    -Remettre à null la valeur des attributs de l' objet
+
+ 
