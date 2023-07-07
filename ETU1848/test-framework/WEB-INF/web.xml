@@ -18,6 +18,10 @@ version="2.4">
 
 <servlet-mapping>
     <servlet-name>FrontServlet</servlet-name>
-    <url-pattern>/</url-pattern>
+    <url-pattern>*.gg</url-pattern>
 </servlet-mapping>
+<context-param>
+    <param-name>profil</param-name>
+    <param-value>ano</param-value>
+</context-param>
 </web-app>
