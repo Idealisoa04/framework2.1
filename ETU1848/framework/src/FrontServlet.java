@@ -2,16 +2,21 @@ package etu1848.framework.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+
 import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import javax.swing.text.Utilities;
+import javax.servlet.annotation.WebServlet;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import etu1848.framework.Mapping;
+import etu1848.framework.ModelView;
 import etu1848.framework.Url;
 import etu1848.framework.Utils;
 
@@ -24,13 +29,31 @@ public class FrontServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            //entrySet -> ampiasaina ao am boucle angalana an le clef sy valeur     
             out.println("You are being redirected to FRONTSERVLET");
-            for (Map.Entry<String, Mapping> entry : mappingUrls.entrySet()) {
+
+            ModelView modelView = (ModelView)Utils.modelDeRedirection(request, mappingUrls);
+            RequestDispatcher dispat = request.getRequestDispatcher(modelView.getVueRedirection());
+
+            HashMap<String, Object> data = modelView.getData();                                    // Get all data of the mv
+
+            if(data != null){
+                for (Map.Entry<String, Object> entry : data.entrySet()) {
+                    String key = entry.getKey();
+                    Object value = entry.getValue();
+                    out.println(key + " - "+ value);
+                    request.setAttribute(key, value);
+                }
+            }
+
+            dispat.forward(request, response); 
+            /*  for (Map.Entry<String, Mapping> entry : mappingUrls.entrySet()) {
                 String clef = entry.getKey();// clef
                 Mapping map = entry.getValue(); // valeur
                 out.println("L' annotation: " + clef + " de valeur " + map.getClassName() + " de fonction appelée "
                         + map.getMethod());
-            }
+            } */
+        //mappingUrls.entrySet();    
         } catch (Exception e) {
             out.println(e.getMessage() + "\n");
             e.printStackTrace();
